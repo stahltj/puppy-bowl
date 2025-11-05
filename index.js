@@ -1,13 +1,12 @@
 //If you would like to, you can create a variable to store the API_URL here.
 //This is optional. if you do not want to, skip this and move on.
 
+// https://fsa-puppy-bowl.herokuapp.com/api/2510-tyler
 
 /////////////////////////////
 /*This looks like a good place to declare any state or global variables you might need*/
-
+let PLAYERS = [];
 ////////////////////////////
-
-
 
 /**
  * Fetches all players from the API.
@@ -15,8 +14,16 @@
  * @returns {Object[]} the array of player objects
  */
 const fetchAllPlayers = async () => {
-  //TODO
-
+  try {
+    const response = await fetch(
+      "https://fsa-puppy-bowl.herokuapp.com/api/2510-tyler/players"
+    );
+    const obj = await response.json();
+    console.log(obj.data);
+    return obj.data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /**
@@ -26,7 +33,17 @@ const fetchAllPlayers = async () => {
  * @returns {Object} the player object
  */
 const fetchSinglePlayer = async (playerId) => {
-  //TODO
+  try {
+    const response = await fetch(
+      `https://fsa-puppy-bowl.herokuapp.com/api/2510-tyler/players/${id}`
+    );
+    const obj = await response.json();
+    console.log(obj.data);
+    singlePlayerObj = obj.data;
+    render();
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /**
@@ -36,8 +53,8 @@ const fetchSinglePlayer = async (playerId) => {
  * @param {Object} newPlayer the player to add
  */
 /* Note: we need data from our user to be able to add a new player
- * Do we have a way to do that currently...? 
-*/
+ * Do we have a way to do that currently...?
+ */
 /**
  * Note#2: addNewPlayer() expects you to pass in a
  * new player object when you call it. How can we
@@ -64,7 +81,6 @@ const addNewPlayer = async (newPlayer) => {
 
 const removePlayer = async (playerId) => {
   //TODO
-
 };
 
 /**
@@ -79,17 +95,27 @@ const removePlayer = async (playerId) => {
  *
  * Additionally, for each player we should be able to:
  * - See details of a single player. The page should show
- *    specific details about the player clicked 
+ *    specific details about the player clicked
  * - Remove from roster. when clicked, should remove the player
  *    from the database and our current view without having to refresh
  *
  */
-const render = () => {
-  // TODO
-
-  
+const render = (players) => {
+  const puppyList = document.getElementById("puppyList");
+  players.forEach((puppy) => {
+    const puppyElement = `        <div class="puppyContainer" data-status="${puppy.status}">
+          <div class="imageWrapper">
+            <img
+              src="${puppy.imageUrl}"
+              alt="${puppy.name}"
+            />
+          </div>
+          <p class="puppyName">${puppy.name}</p>
+          <p class="puppyBreed">${puppy.breed}</p>
+        </div>`;
+    puppyList.insertAdjacentHTML("beforeend", puppyElement);
+  });
 };
-
 
 /**
  * Initializes the app by calling render
@@ -97,9 +123,8 @@ const render = () => {
  */
 const init = async () => {
   //Before we render, what do we always need...?
-
-  render();
-
+  let players = await fetchAllPlayers();
+  render(players);
 };
 
 init();
