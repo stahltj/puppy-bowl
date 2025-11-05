@@ -20,7 +20,10 @@ const fetchAllPlayers = async () => {
     );
     const obj = await response.json();
     console.log(obj.data);
-    return obj.data;
+    // Check if obj.data.players exists (nested structure)
+    if (obj.data && obj.data.players) {
+      PLAYERS = obj.data.players;
+    }
   } catch (error) {
     console.error(error);
   }
@@ -100,9 +103,9 @@ const removePlayer = async (playerId) => {
  *    from the database and our current view without having to refresh
  *
  */
-const render = (players) => {
+const render = () => {
   const puppyList = document.getElementById("puppyList");
-  players.forEach((puppy) => {
+  PLAYERS.forEach((puppy) => {
     const puppyElement = `        <div class="puppyContainer" data-status="${puppy.status}">
           <div class="imageWrapper">
             <img
@@ -123,8 +126,8 @@ const render = (players) => {
  */
 const init = async () => {
   //Before we render, what do we always need...?
-  let players = await fetchAllPlayers();
-  render(players);
+  await fetchAllPlayers();
+  render();
 };
 
 init();
