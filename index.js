@@ -77,9 +77,7 @@ const addNewPlayer = async (newPlayer) => {
       }
     );
     const data = await response.json();
-    console.log(data.data);
-    players.push(data.data);
-    render();
+    init();
   } catch (error) {
     console.error(error);
   }
@@ -184,6 +182,22 @@ const detailHandlers = () => {
     });
   }
 };
+
+/**
+ * add new puppy form handler
+ */
+const setUpPuppyFormHandler = () => {
+  const form = document.getElementById("addPuppyForm");
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const name = document.getElementById("name").value;
+    const breed = document.getElementById("breed").value;
+    const status = document.getElementById("status").value;
+    const newPlayer = { name, breed, status };
+    await addNewPlayer(newPlayer);
+    form.reset();
+  });
+};
 /**
  * Initializes the app by calling render
  * HOWEVER....
@@ -193,6 +207,7 @@ const init = async () => {
   await fetchAllPlayers();
   render();
   detailHandlers();
+  setUpPuppyFormHandler();
 };
 
 init();
