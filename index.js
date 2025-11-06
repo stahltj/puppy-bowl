@@ -136,7 +136,9 @@ const render = () => {
   //clear out existing puppylist
   puppyList.innerHTML = "";
   PLAYERS.forEach((puppy) => {
-    const puppyElement = `        <div class="puppyContainer" data-status="${puppy.status}">
+    const puppyElement = `        <div class="puppyContainer" data-status="${
+      puppy.status
+    }">
           <div class="imageWrapper">
             <img
               src="${puppy.imageUrl}"
@@ -149,9 +151,13 @@ const render = () => {
             <p class="puppyBreed">${puppy.breed}</p>
             <p class="puppyId">${puppy.id}</p>
             <p class="puppyStatus">${puppy.status}</p>
-            <p class="puppyTeam">${puppy.team}</p>
+            <p class="puppyTeam">${
+              puppy.team ? puppy.team.name : "unassigned"
+            }</p>
             <div class="removePlayer">
-              <button id="removePlayerButton" onclick="removePlayer(${puppy.id})">
+              <button id="removePlayerButton" onclick="removePlayer(${
+                puppy.id
+              })">
                 Remove Player
               </button>
             </div>
