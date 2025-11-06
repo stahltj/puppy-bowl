@@ -144,10 +144,12 @@ const render = () => {
             />
           </div>
           <p class="puppyName">${puppy.name}</p>
-          <p class="puppyBreed">${puppy.breed}</p>
           <button type="button" class="collapsible">Show Details</button>
           <div class="content">
             <p class="puppyBreed">${puppy.breed}</p>
+            <p class="puppyId">${puppy.id}</p>
+            <p class="puppyStatus">${puppy.status}</p>
+            <p class="puppyTeam">${puppy.team}</p>
             <div class="removePlayer">
               <button id="removePlayerButton" onclick="removePlayer(${puppy.id})">
                 Remove Player
@@ -157,6 +159,7 @@ const render = () => {
     puppyList.insertAdjacentHTML("beforeend", puppyElement);
   });
 };
+
 var coll = document.getElementsByClassName("collapsible");
 var i;
 /**
