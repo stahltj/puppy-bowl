@@ -9,7 +9,43 @@
   <body>
     <div id="app">
       <h1>Puppy Bowl</h1>
-      <div id="puppyList"></div>
+      <div id="puppyList">
+        <div class="puppyContainer" data-status="field">
+          <div class="imageWrapper">
+            <img
+              src="http://r.ddmcdn.com/w_912/s_f/o_1/cx_51/cy_0/cw_912/ch_1368/APL/uploads/2019/12/Anise-PBXVI.jpg"
+              alt="Anise"
+            />
+          </div>
+          <p class="puppyName">Anise</p>
+
+          <button type="button" class="collapsible">Show Details</button>
+          <div class="content">
+            <p class="puppyBreed">Australian Cattle Dog / Labrador Retriever</p>
+            <div class="removePlayer">
+              <button id="removePlayerButton" onclick="removePlayer(46910)">
+                Remove Player
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="addPlayer">
+          <h2>Invite puppy</h2>
+          <hr />
+          <form>
+            <label>Name</label>
+            <input type="text" />
+            <label>Breed</label>
+            <input type="text" />
+            <label>Status</label>
+            <select name="status">
+              <option value="bench">Bench</option>
+              <option value="field">Field</option>
+            </select>
+            <input type="submit" />
+          </form>
+        </div>
+      </div>
     </div>
   </body>
 </html>

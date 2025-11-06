@@ -65,7 +65,24 @@ const fetchSinglePlayer = async (playerId) => {
  */
 
 const addNewPlayer = async (newPlayer) => {
-  //TODO
+  try {
+    const response = await fetch(
+      "https://fsa-puppy-bowl.herokuapp.com/api/2510-tyler/players",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newPlayer),
+      }
+    );
+    const data = await response.json();
+    console.log(data.data);
+    players.push(data.data);
+    render();
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /**
@@ -83,7 +100,18 @@ const addNewPlayer = async (newPlayer) => {
  */
 
 const removePlayer = async (playerId) => {
-  //TODO
+  try {
+    //console.log(id);
+    await fetch(
+      `https://fsa-puppy-bowl.herokuapp.com/api/2510-tyler/players/${playerId}`,
+      {
+        method: "DELETE",
+      }
+    );
+    init();
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /**
@@ -105,6 +133,8 @@ const removePlayer = async (playerId) => {
  */
 const render = () => {
   const puppyList = document.getElementById("puppyList");
+  //clear out existing puppylist
+  puppyList.innerHTML = "";
   PLAYERS.forEach((puppy) => {
     const puppyElement = `        <div class="puppyContainer" data-status="${puppy.status}">
           <div class="imageWrapper">
@@ -115,11 +145,36 @@ const render = () => {
           </div>
           <p class="puppyName">${puppy.name}</p>
           <p class="puppyBreed">${puppy.breed}</p>
-        </div>`;
+          <button type="button" class="collapsible">Show Details</button>
+          <div class="content">
+            <p class="puppyBreed">${puppy.breed}</p>
+            <div class="removePlayer">
+              <button id="removePlayerButton" onclick="removePlayer(${puppy.id})">
+                Remove Player
+              </button>
+            </div>
+          </div>`;
     puppyList.insertAdjacentHTML("beforeend", puppyElement);
   });
 };
-
+var coll = document.getElementsByClassName("collapsible");
+var i;
+/**
+ * event handler for see details
+ */
+const detailHandlers = () => {
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function () {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
+  }
+};
 /**
  * Initializes the app by calling render
  * HOWEVER....
@@ -128,6 +183,7 @@ const init = async () => {
   //Before we render, what do we always need...?
   await fetchAllPlayers();
   render();
+  detailHandlers();
 };
 
 init();
