@@ -23,5 +23,20 @@
 #puppyList {
   background-color: lightblue;
   border-radius: 1rem;
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+h1 {
+  background-color: cornflowerblue;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+h2 {
+  text-decoration: underline;
 }
