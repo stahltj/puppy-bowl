@@ -146,10 +146,10 @@ const render = () => {
           <p class="puppyName">${puppy.name}</p>
           <button type="button" class="collapsible">Show Details</button>
           <div class="content">
-            <p class="puppyBreed">${puppy.breed}</p>
-            <p class="puppyId">${puppy.id}</p>
-            <p class="puppyStatus">${puppy.status}</p>
-            <p class="puppyTeam">${
+            <p class="puppyBreed">Breed= ${puppy.breed}</p>
+            <p class="puppyId">I.D.= ${puppy.id}</p>
+            <p class="puppyStatus">Status= ${puppy.status}</p>
+            <p class="puppyTeam">Team= ${
               puppy.team ? puppy.team.name : "unassigned"
             }</p>
             <div class="removePlayer">
@@ -159,7 +159,8 @@ const render = () => {
                 Remove Player
               </button>
             </div>
-          </div>`;
+          </div>
+          <hr/>`;
     puppyList.insertAdjacentHTML("beforeend", puppyElement);
   });
 };

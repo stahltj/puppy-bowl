@@ -13,3 +13,15 @@
 .content {
   display: none;
 }
+.imageWrapper img {
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+#puppyList {
+  background-color: lightblue;
+  border-radius: 1rem;
+  justify-content: center;
+}
